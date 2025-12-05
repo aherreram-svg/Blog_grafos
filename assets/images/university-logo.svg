@@ -1,0 +1,68 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.4"/>
+    </filter>
+    <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Sombra exterior -->
+  <circle cx="100" cy="100" r="98" fill="none" stroke="rgba(231, 76, 60, 0.2)" stroke-width="8"/>
+  
+  <!-- Círculo exterior principal -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#grad1)" stroke-width="4" filter="url(#shadow)"/>
+  
+  <!-- Círculo interior con gradiente -->
+  <circle cx="100" cy="100" r="85" fill="#f5f5f5" filter="url(#shadow)"/>
+  
+  <!-- Fondo decorativo -->
+  <rect x="50" y="50" width="100" height="100" fill="#e74c3c" opacity="0.05" rx="10"/>
+  
+  <!-- Base de la Universidad (libro y símbolo académico) -->
+  <rect x="60" y="80" width="80" height="50" fill="#e74c3c" opacity="0.15" rx="5"/>
+  
+  <!-- Libro abierto con efecto 3D -->
+  <path d="M 75 90 Q 75 85 80 85 L 95 85 L 95 115 L 80 115 Q 75 115 75 110 Z" fill="none" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 125 90 Q 125 85 120 85 L 105 85 L 105 115 L 120 115 Q 125 115 125 110 Z" fill="none" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Lomo del libro -->
+  <line x1="100" y1="85" x2="100" y2="115" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- Líneas del libro izquierdo -->
+  <line x1="82" y1="92" x2="93" y2="92" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  <line x1="82" y1="98" x2="93" y2="98" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  <line x1="82" y1="104" x2="93" y2="104" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  <line x1="82" y1="110" x2="93" y2="110" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  
+  <!-- Líneas del libro derecho -->
+  <line x1="107" y1="92" x2="118" y2="92" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  <line x1="107" y1="98" x2="118" y2="98" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  <line x1="107" y1="104" x2="118" y2="104" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  <line x1="107" y1="110" x2="118" y2="110" stroke="#e74c3c" stroke-width="1.5" opacity="0.8"/>
+  
+  <!-- Corona académica (mortarboard) mejorada -->
+  <path d="M 70 65 L 80 55 L 100 50 L 120 55 L 130 65" fill="none" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Decoración de la corona -->
+  <circle cx="100" cy="52" r="4" fill="#e74c3c"/>
+  <circle cx="100" cy="52" r="2.5" fill="#c0392b"/>
+  
+  <!-- Líneas decorativas hacia afuera -->
+  <line x1="70" y1="65" x2="65" y2="70" stroke="#e74c3c" stroke-width="1.5" opacity="0.6"/>
+  <line x1="130" y1="65" x2="135" y2="70" stroke="#e74c3c" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Texto Universidad Incca -->
+  <text x="100" y="143" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#e74c3c" letter-spacing="1">
+    UNIVERSIDAD
+  </text>
+  <text x="100" y="160" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b" letter-spacing="0.5">
+    INCCA DE COLOMBIA
+  </text>
+  
+  <!-- Línea decorativa bajo el texto -->
+  <line x1="60" y1="167" x2="140" y2="167" stroke="#e74c3c" stroke-width="1.5" opacity="0.5"/>
+</svg>
+

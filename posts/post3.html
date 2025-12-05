@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post #3: Algoritmos de Recorrido BFS y DFS | Blog Grafos</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1>📊 Blog Grafos</h1>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="post1.html">Post #1</a></li>
+        <li><a href="post2.html">Post #2</a></li>
+        <li><a href="post3.html">Post #3</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <a href="../index.html" class="back-button">← Volver al Inicio</a>
+
+    <article class="post-content">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="../assets/images/university-logo.svg" alt="Universidad Incca de Colombia" style="height: 80px; width: auto;">
+      </div>
+      <h1>Algoritmos Fundamentales de Recorrido: BFS y DFS</h1>
+      <p><em>Domina los dos algoritmos más importantes para explorar grafos</em></p>
+
+      <!-- Tabla de Contenidos -->
+      <div style="background: #f0f0f0; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+        <h3>📋 Contenido de este artículo</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><a href="#introduccion" style="color: #2ecc71;">¿Por qué recorrer grafos?</a></li>
+          <li><a href="#bfs" style="color: #2ecc71;">BFS (Breadth-First Search)</a></li>
+          <li><a href="#dfs" style="color: #2ecc71;">DFS (Depth-First Search)</a></li>
+          <li><a href="#comparacion" style="color: #2ecc71;">Comparación y Aplicaciones</a></li>
+        </ul>
+      </div>
+
+      <!-- Section 1 -->
+      <h2 id="introduccion">¿Por qué recorrer grafos?</h2>
+      <p>
+        Uno de los problemas fundamentales al trabajar con grafos es poder visitarlos de manera sistemática, 
+        es decir, pasar por todos sus nodos (o los conectados) en un orden específico. Esto es necesario para:
+      </p>
+
+      <ul>
+        <li><strong>Buscar un nodo específico:</strong> ¿Existe una página web con ese contenido?</li>
+        <li><strong>Verificar conectividad:</strong> ¿Están conectados todos los nodos?</li>
+        <li><strong>Encontrar caminos:</strong> ¿Cuál es el camino más corto entre dos ciudades?</li>
+        <li><strong>Análisis de red:</strong> ¿Cuán relacionados están los usuarios en una red social?</li>
+        <li><strong>Resolver problemas complejos:</strong> Muchos problemas complejos requieren recorrer un grafo</li>
+      </ul>
+
+      <p>
+        Los dos algoritmos de recorrido más importantes son:
+      </p>
+      <ul>
+        <li><strong>BFS (Breadth-First Search):</strong> Búsqueda en Amplitud</li>
+        <li><strong>DFS (Depth-First Search):</strong> Búsqueda en Profundidad</li>
+      </ul>
+
+      <!-- Section 2 -->
+      <h2 id="bfs">BFS (Breadth-First Search) - Búsqueda en Amplitud</h2>
+
+      <h3>Concepto Fundamental</h3>
+      <p>
+        BFS es un algoritmo que recorre el grafo <strong>nivel por nivel</strong>. 
+        Comienza desde un nodo inicial y explora todos sus vecinos antes de pasar a los vecinos de esos vecinos.
+      </p>
+
+      <p>
+        Imagina que arrojas una piedra en un estanque: las ondas se expanden hacia afuera, 
+        primero alcanzando los puntos más cercanos, luego los más lejanos. BFS funciona de manera similar.
+      </p>
+
+      <h3>Algoritmo Paso a Paso</h3>
+      <ol>
+        <li>Comienza con un nodo inicial</li>
+        <li>Coloca el nodo inicial en una <strong>cola</strong> (FIFO)</li>
+        <li>Mientras la cola no esté vacía:
+          <ol type="a">
+            <li>Extrae el primer nodo de la cola</li>
+            <li>Procesa el nodo (visítalo)</li>
+            <li>Agrega todos sus vecinos no visitados a la cola</li>
+          </ol>
+        </li>
+      </ol>
+
+      <h3>Implementación en JavaScript</h3>
+      <div class="code-block">
+        <code>
+function BFS(grafo, nodoInicial) {
+  const visitados = new Set();
+  const cola = [nodoInicial];
+  const orden = [];
+
+  visitados.add(nodoInicial);
+
+  while (cola.length > 0) {
+    // Extrae el primer nodo de la cola
+    const nodo = cola.shift();
+    orden.push(nodo);
+
+    // Explora todos los vecinos
+    for (const vecino of grafo[nodo]) {
+      if (!visitados.has(vecino)) {
+        visitados.add(vecino);
+        cola.push(vecino);
+      }
+    }
+  }
+
+  return orden;
+}
+
+// Uso:
+const grafo = {
+  'A': ['B', 'C'],
+  'B': ['A', 'D', 'E'],
+  'C': ['A', 'F'],
+  'D': ['B'],
+  'E': ['B', 'F'],
+  'F': ['C', 'E']
+};
+
+console.log(BFS(grafo, 'A')); 
+// Resultado: ['A', 'B', 'C', 'D', 'E', 'F']
+        </code>
+      </div>
+
+      <h3>Trace Paso a Paso: Ejemplo BFS</h3>
+      <div class="interactive-section">
+        <h4>Simulación de BFS desde el nodo A</h4>
+        <button onclick="simulateBFS()">▶ Ejecutar Simulación</button>
+        <div id="bfsOutput" style="margin-top: 1rem; background: white; padding: 1rem; border-radius: 5px;"></div>
+      </div>
+
+      <h3>Características de BFS</h3>
+      <ul>
+        <li><strong>Complejidad Temporal:</strong> O(V + E) donde V = vértices, E = aristas</li>
+        <li><strong>Complejidad Espacial:</strong> O(V) para la cola y el set de visitados</li>
+        <li><strong>Estructura de datos:</strong> Cola (FIFO)</li>
+        <li><strong>Orden de visita:</strong> Nivel por nivel (amplitud primero)</li>
+      </ul>
+
+      <h3>Ventajas de BFS</h3>
+      <ul>
+        <li>✅ Encuentra el <strong>camino más corto</strong> en grafos sin pesos</li>
+        <li>✅ Completo: Siempre encuentra una solución si existe</li>
+        <li>✅ Óptimo para problemas de distancia mínima</li>
+      </ul>
+
+      <h3>Desventajas de BFS</h3>
+      <ul>
+        <li>❌ Usa más memoria que DFS (almacena todos los nodos de un nivel)</li>
+        <li>❌ Más lento para ciertos tipos de grafos</li>
+      </ul>
+
+      <!-- Diagram -->
+      <div class="diagram">
+        <h4>Visualización: Grafo para BFS</h4>
+        <canvas id="graphCanvasBFS" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">
+          BFS visitaría los nodos en orden: A, B, C, D, E, F
+        </p>
+      </div>
+
+      <!-- Section 3 -->
+      <h2 id="dfs">DFS (Depth-First Search) - Búsqueda en Profundidad</h2>
+
+      <h3>Concepto Fundamental</h3>
+      <p>
+        DFS es un algoritmo que recorre el grafo explorando lo más <strong>profundo posible</strong> 
+        antes de retroceder. Comienza desde un nodo inicial y continúa explorando cada rama hasta el final 
+        antes de pasar a la siguiente rama.
+      </p>
+
+      <p>
+        Imagina que entras en un laberinto y siempre tomas un pasillo hasta el final, 
+        luego retrocedes para probar otra ruta. Así funciona DFS.
+      </p>
+
+      <h3>Algoritmo Paso a Paso (Versión Iterativa)</h3>
+      <ol>
+        <li>Comienza con un nodo inicial</li>
+        <li>Coloca el nodo inicial en una <strong>pila</strong> (LIFO)</li>
+        <li>Mientras la pila no esté vacía:
+          <ol type="a">
+            <li>Extrae el último nodo de la pila</li>
+            <li>Procesa el nodo (visítalo)</li>
+            <li>Agrega todos sus vecinos no visitados a la pila</li>
+          </ol>
+        </li>
+      </ol>
+
+      <h3>Implementación en JavaScript (Iterativa)</h3>
+      <div class="code-block">
+        <code>
+function DFS(grafo, nodoInicial) {
+  const visitados = new Set();
+  const pila = [nodoInicial];
+  const orden = [];
+
+  while (pila.length > 0) {
+    // Extrae el último nodo de la pila
+    const nodo = pila.pop();
+
+    if (!visitados.has(nodo)) {
+      visitados.add(nodo);
+      orden.push(nodo);
+
+      // Agrega todos los vecinos a la pila
+      for (const vecino of grafo[nodo]) {
+        if (!visitados.has(vecino)) {
+          pila.push(vecino);
+        }
+      }
+    }
+  }
+
+  return orden;
+}
+
+// Uso:
+const grafo = {
+  'A': ['B', 'C'],
+  'B': ['A', 'D', 'E'],
+  'C': ['A', 'F'],
+  'D': ['B'],
+  'E': ['B', 'F'],
+  'F': ['C', 'E']
+};
+
+console.log(DFS(grafo, 'A')); 
+// Resultado posible: ['A', 'C', 'F', 'E', 'B', 'D']
+        </code>
+      </div>
+
+      <h3>Implementación Recursiva de DFS</h3>
+      <p>
+        DFS también puede implementarse recursivamente, lo que es más elegante:
+      </p>
+      <div class="code-block">
+        <code>
+function DFS_Recursivo(grafo, nodo, visitados = new Set(), orden = []) {
+  visitados.add(nodo);
+  orden.push(nodo);
+
+  for (const vecino of grafo[nodo]) {
+    if (!visitados.has(vecino)) {
+      DFS_Recursivo(grafo, vecino, visitados, orden);
+    }
+  }
+
+  return orden;
+}
+
+// Uso:
+console.log(DFS_Recursivo(grafo, 'A'));
+        </code>
+      </div>
+
+      <h3>Trace Paso a Paso: Ejemplo DFS</h3>
+      <div class="interactive-section">
+        <h4>Simulación de DFS desde el nodo A</h4>
+        <button onclick="simulateDFS()">▶ Ejecutar Simulación</button>
+        <div id="dfsOutput" style="margin-top: 1rem; background: white; padding: 1rem; border-radius: 5px;"></div>
+      </div>
+
+      <h3>Características de DFS</h3>
+      <ul>
+        <li><strong>Complejidad Temporal:</strong> O(V + E) igual que BFS</li>
+        <li><strong>Complejidad Espacial:</strong> O(V) para la pila y el set de visitados</li>
+        <li><strong>Estructura de datos:</strong> Pila (LIFO) o recursión</li>
+        <li><strong>Orden de visita:</strong> Profundidad primero</li>
+      </ul>
+
+      <h3>Ventajas de DFS</h3>
+      <ul>
+        <li>✅ Usa menos memoria que BFS (pila más pequeña)</li>
+        <li>✅ Más eficiente en ciertos problemas (ciclos, componentes conectadas)</li>
+        <li>✅ Útil para ordenamiento topológico y análisis de conectividad</li>
+      </ul>
+
+      <h3>Desventajas de DFS</h3>
+      <ul>
+        <li>❌ No encuentra necesariamente el camino más corto</li>
+        <li>❌ Puede ser menos intuitivo que BFS</li>
+      </ul>
+
+      <!-- Diagram -->
+      <div class="diagram">
+        <h4>Visualización: Grafo para DFS</h4>
+        <canvas id="graphCanvasDFS" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">
+          DFS visitaría los nodos explorando profundidad primero
+        </p>
+      </div>
+
+      <!-- Section 4 -->
+      <h2 id="comparacion">Comparación: BFS vs DFS</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Aspecto</th>
+            <th>BFS</th>
+            <th>DFS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Estructura de datos</strong></td>
+            <td>Cola (FIFO)</td>
+            <td>Pila (LIFO) o Recursión</td>
+          </tr>
+          <tr>
+            <td><strong>Orden de exploración</strong></td>
+            <td>Amplitud (nivel por nivel)</td>
+            <td>Profundidad</td>
+          </tr>
+          <tr>
+            <td><strong>Complejidad Temporal</strong></td>
+            <td>O(V + E)</td>
+            <td>O(V + E)</td>
+          </tr>
+          <tr>
+            <td><strong>Complejidad Espacial</strong></td>
+            <td>O(V) - Puede ser alta</td>
+            <td>O(V) - Generalmente menor</td>
+          </tr>
+          <tr>
+            <td><strong>Camino más corto</strong></td>
+            <td>✅ Sí (en grafos sin pesos)</td>
+            <td>❌ No</td>
+          </tr>
+          <tr>
+            <td><strong>Componentes conectadas</strong></td>
+            <td>✅ Excelente</td>
+            <td>✅ Excelente</td>
+          </tr>
+          <tr>
+            <td><strong>Ciclos</strong></td>
+            <td>✅ Puede detectar</td>
+            <td>✅ Puede detectar</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Aplicaciones Prácticas -->
+      <h2>Aplicaciones Prácticas</h2>
+
+      <h3>Cuándo usar BFS</h3>
+      <div style="background: #e3f2fd; padding: 1.5rem; border-left: 4px solid #2196f3; border-radius: 5px;">
+        <ul>
+          <li>🔍 <strong>Encontrar el camino más corto:</strong> GPS, redes</li>
+          <li>🔍 <strong>Análisis de componentes conectadas:</strong> Redes sociales</li>
+          <li>🔍 <strong>Buscar en amplitud:</strong> Motores de búsqueda web</li>
+          <li>🔍 <strong>Bipartición de grafos:</strong> Coloring de grafos</li>
+          <li>🔍 <strong>Buscar por niveles:</strong> Estructura de árbol</li>
+        </ul>
+      </div>
+
+      <h3>Cuándo usar DFS</h3>
+      <div style="background: #f3e5f5; padding: 1.5rem; border-left: 4px solid #9c27b0; border-radius: 5px;">
+        <ul>
+          <li>🎯 <strong>Ordenamiento Topológico:</strong> Dependencias de tareas</li>
+          <li>🎯 <strong>Detección de ciclos:</strong> Verificar dependencias circulares</li>
+          <li>🎯 <strong>Componentes fuertemente conectadas:</strong> Análisis de redes</li>
+          <li>🎯 <strong>Backtracking:</strong> Resolver laberintos, Sudoku</li>
+          <li>🎯 <strong>Buscar en laberintos:</strong> Juegos, navegación</li>
+        </ul>
+      </div>
+
+      <!-- Resumen -->
+      <h2>Resumen</h2>
+      <div style="background: #fff8e1; padding: 1.5rem; border-left: 4px solid #ff9800; border-radius: 5px;">
+        <p>
+          BFS y DFS son los dos algoritmos fundamentales para recorrer grafos. 
+          Ambos tienen complejidad O(V + E), pero difieren en su enfoque:
+        </p>
+        <ul>
+          <li>
+            <strong>BFS (Breadth-First Search):</strong> Explora nivel por nivel usando una cola. 
+            Ideal para encontrar el camino más corto en grafos sin pesos.
+          </li>
+          <li>
+            <strong>DFS (Depth-First Search):</strong> Explora profundidad primero usando una pila o recursión. 
+            Ideal para detectar ciclos, ordenamiento topológico y problemas de backtracking.
+          </li>
+        </ul>
+        <p>
+          Dominar estos dos algoritmos es fundamental para resolver problemas más complejos con grafos, 
+          como encontrar componentes conectadas, ordenamiento topológico, y algoritmos avanzados 
+          como Dijkstra (basado en BFS) o búsqueda por profundidad en análisis de conectividad.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div style="margin-top: 3rem; display: flex; justify-content: space-between; gap: 1rem;">
+        <a href="post2.html" class="back-button" style="background-color: #c0392b;">← Post #2</a>
+        <a href="../index.html" class="back-button" style="background-color: #e74c3c;">Volver al Inicio</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Blog Técnico: Estructura de Datos - Grafos</p>
+    <p>Desarrollado por <strong>Alberto Herrera Medina</strong></p>
+  </footer>
+
+  <script src="../assets/js/graph-visualizer.js"></script>
+</body>
+</html>

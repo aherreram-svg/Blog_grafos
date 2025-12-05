@@ -1,0 +1,399 @@
+/* ========================================
+   Blog Técnico: Estructura de Datos Grafos
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+nav .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  color: #2ecc71;
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #2ecc71;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header */
+header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4rem 0;
+  text-align: center;
+  margin-bottom: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 2rem;
+}
+
+header h1 {
+  color: #2ecc71;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+header p {
+  color: #666;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Posts Grid */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Post Card */
+.post-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.post-card-header {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  padding: 2rem;
+  color: white;
+}
+
+.post-card-header h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.post-card-header p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.post-card-body {
+  padding: 2rem;
+}
+
+.post-card-body p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.read-more {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background-color: #e74c3c;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.read-more:hover {
+  background-color: #c0392b;
+}
+
+/* Post Content */
+.post-content {
+  background: white;
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 3rem;
+}
+
+.post-content h1 {
+  color: #2ecc71;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.post-content h2 {
+  color: #27ae60;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.post-content h3 {
+  color: #2ecc71;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.post-content p {
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.post-content ul, .post-content ol {
+  margin: 1.5rem 0 1.5rem 2rem;
+  color: #555;
+}
+
+.post-content li {
+  margin-bottom: 0.8rem;
+}
+
+/* Code Block */
+.code-block {
+  background-color: #f5f5f5;
+  border-left: 4px solid #2ecc71;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.code-block code {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+/* Visual Diagram */
+.diagram {
+  background-color: #f9f9f9;
+  border: 2px solid #2ecc71;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.diagram canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background-color: #f9f9f9;
+}
+
+table th {
+  background-color: #667eea;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:hover {
+  background-color: #f0f0f0;
+}
+
+/* Back Button */
+.back-button {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background-color: #e74c3c;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.back-button:hover {
+  background-color: #c0392b;
+}
+
+/* Canvas Container */
+.canvas-container {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  border: 1px solid #ccc;
+  background: white;
+}
+
+/* Interactive Elements */
+.interactive-section {
+  background: #f0f0f0;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.interactive-section h3 {
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.7rem 1.5rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #c0392b;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* Footer */
+footer {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+
+footer a {
+  color: #2ecc71;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .post-content {
+    padding: 1.5rem;
+  }
+
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .post-card-header {
+    padding: 1.5rem;
+  }
+
+  .diagram {
+    padding: 1rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  nav, footer {
+    display: none;
+  }
+
+  .post-content {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* Animación del logo */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

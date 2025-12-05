@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post #1: Introducción a los Grafos | Blog Grafos</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1>📊 Blog Grafos</h1>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="post1.html">Post #1</a></li>
+        <li><a href="post2.html">Post #2</a></li>
+        <li><a href="post3.html">Post #3</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <a href="../index.html" class="back-button">← Volver al Inicio</a>
+
+    <article class="post-content">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="../assets/images/university-logo.svg" alt="Universidad Incca de Colombia" style="height: 80px; width: auto;">
+      </div>
+      <h1>Introducción a los Grafos: Nodos, Aristas y Tipos</h1>
+      <p><em>Descubre los fundamentos de una de las estructuras de datos más importantes en la programación</em></p>
+
+      <!-- Tabla de Contenidos -->
+      <div style="background: #f0f0f0; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+        <h3>📋 Contenido de este artículo</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><a href="#introduccion" style="color: #2ecc71;">¿Qué es un Grafo?</a></li>
+          <li><a href="#componentes" style="color: #2ecc71;">Componentes Principales</a></li>
+          <li><a href="#tipos" style="color: #2ecc71;">Tipos de Grafos</a></li>
+          <li><a href="#ejemplos" style="color: #2ecc71;">Ejemplos Visuales</a></li>
+        </ul>
+      </div>
+
+      <!-- Section 1 -->
+      <h2 id="introduccion">¿Qué es un Grafo?</h2>
+      <p>
+        Un <strong>grafo</strong> es una estructura de datos matemática que representa un conjunto de objetos 
+        (llamados vértices o nodos) y sus relaciones (llamadas aristas o ejes). En términos simples, 
+        es una colección de puntos conectados entre sí.
+      </p>
+
+      <p>
+        Los grafos son ampliamente utilizados en la programación para modelar problemas del mundo real donde 
+        existen relaciones entre entidades. Algunos ejemplos incluyen:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Redes Sociales:</strong> Usuarios como nodos, amistades como aristas
+        </li>
+        <li>
+          <strong>Navegación GPS:</strong> Ciudades como nodos, carreteras como aristas ponderadas
+        </li>
+        <li>
+          <strong>Páginas Web:</strong> URLs como nodos, enlaces como aristas dirigidas
+        </li>
+        <li>
+          <strong>Moléculas Químicas:</strong> Átomos como nodos, enlaces como aristas
+        </li>
+        <li>
+          <strong>Juegos Computacionales:</strong> Ubicaciones como nodos, movimientos como aristas
+        </li>
+      </ul>
+
+      <p>
+        Matemáticamente, un grafo se define como <strong>G = (V, E)</strong>, donde:
+      </p>
+      <ul>
+        <li><strong>V</strong> es un conjunto de vértices (nodos)</li>
+        <li><strong>E</strong> es un conjunto de aristas (conexiones entre vértices)</li>
+      </ul>
+
+      <!-- Section 2 -->
+      <h2 id="componentes">Componentes Principales</h2>
+
+      <h3>1. Vértices o Nodos</h3>
+      <p>
+        Un <strong>vértice</strong> (también llamado nodo) es una entidad en el grafo. 
+        Puede representar cualquier objeto: una persona en una red social, una ciudad en un mapa, 
+        una página web, etc.
+      </p>
+
+      <p>Cada nodo puede almacenar información asociada:</p>
+      <div class="code-block">
+        <code>
+class Nodo {
+  constructor(id, valor) {
+    this.id = id;        // Identificador único
+    this.valor = valor;  // Datos asociados
+  }
+}
+        </code>
+      </div>
+
+      <h3>2. Aristas o Ejes</h3>
+      <p>
+        Una <strong>arista</strong> es una conexión entre dos nodos. Representa una relación 
+        entre los objetos representados por esos nodos.
+      </p>
+
+      <p>Las aristas pueden caracterizarse por:</p>
+      <ul>
+        <li><strong>Dirección:</strong> Pueden ser dirigidas o no dirigidas</li>
+        <li><strong>Peso:</strong> Pueden tener un valor asociado (ponderadas) o no</li>
+      </ul>
+
+      <div class="code-block">
+        <code>
+class Arista {
+  constructor(nodoOrigen, nodoDestino, peso = 1) {
+    this.origen = nodoOrigen;
+    this.destino = nodoDestino;
+    this.peso = peso;  // 1 por defecto si no está ponderada
+  }
+}
+        </code>
+      </div>
+
+      <!-- Section 3 -->
+      <h2 id="tipos">Tipos de Grafos</h2>
+
+      <h3>1. Grafos No Dirigidos</h3>
+      <p>
+        En un grafo <strong>no dirigido</strong>, las aristas no tienen dirección. 
+        La conexión entre dos nodos es bidireccional. Si A está conectado a B, entonces B está conectado a A.
+      </p>
+
+      <p><strong>Ejemplos:</strong> Redes de amigos, carreteras bidireccionales, redes de computadoras</p>
+
+      <div class="diagram">
+        <h4>Ejemplo: Grafo No Dirigido (5 nodos)</h4>
+        <canvas id="graphCanvas1" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">Los nodos están conectados sin dirección específica</p>
+      </div>
+
+      <h3>2. Grafos Dirigidos (Dígrafos)</h3>
+      <p>
+        En un grafo <strong>dirigido</strong>, las aristas tienen una dirección específica, 
+        generalmente representada con una flecha. La arista va desde un nodo origen a un nodo destino.
+      </p>
+
+      <p><strong>Ejemplos:</strong> Flujo de agua, seguimiento en redes sociales, enlaces en páginas web</p>
+
+      <div class="diagram">
+        <h4>Ejemplo: Grafo Dirigido</h4>
+        <canvas id="graphCanvas2" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">Las flechas indican la dirección de las aristas</p>
+      </div>
+
+      <h3>3. Grafos Ponderados</h3>
+      <p>
+        Un grafo <strong>ponderado</strong> es aquel donde cada arista tiene asociado un valor numérico 
+        llamado "peso" o "costo". Este peso representa la magnitud o costo de la conexión.
+      </p>
+
+      <p><strong>Ejemplos:</strong> Mapas con distancias, redes con ancho de banda, transacciones con monto</p>
+
+      <div class="diagram">
+        <h4>Ejemplo: Grafo Ponderado</h4>
+        <canvas id="graphCanvas3" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">Los números representan el peso de cada arista</p>
+      </div>
+
+      <!-- Tabla Comparativa -->
+      <h2>Tabla Comparativa de Tipos de Grafos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Característica</th>
+            <th>No Dirigido</th>
+            <th>Dirigido</th>
+            <th>Ponderado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Dirección</strong></td>
+            <td>No tiene</td>
+            <td>Bidireccional específica</td>
+            <td>Puede ser dirigido o no</td>
+          </tr>
+          <tr>
+            <td><strong>Peso en Aristas</strong></td>
+            <td>No</td>
+            <td>No (a menos que sea combinado)</td>
+            <td>Sí</td>
+          </tr>
+          <tr>
+            <td><strong>Ejemplo Real</strong></td>
+            <td>Red de amigos</td>
+            <td>Seguimiento en Twitter</td>
+            <td>Mapa de ciudades</td>
+          </tr>
+          <tr>
+            <td><strong>Grado del Nodo</strong></td>
+            <td>Número de aristas</td>
+            <td>Entrada y Salida</td>
+            <td>Igual que su tipo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Conceptos Adicionales -->
+      <h2>Conceptos Importantes</h2>
+
+      <h3>Grado de un Nodo</h3>
+      <p>
+        El <strong>grado</strong> de un nodo es el número de aristas conectadas a él.
+      </p>
+      <ul>
+        <li><strong>Grafo no dirigido:</strong> El grado es simplemente el número de aristas</li>
+        <li><strong>Grafo dirigido:</strong> Se habla de grado de entrada (aristas que llegan) 
+                                              y grado de salida (aristas que salen)</li>
+      </ul>
+
+      <h3>Camino y Ciclo</h3>
+      <ul>
+        <li>
+          <strong>Camino:</strong> Secuencia de nodos conectados por aristas. 
+          Ejemplo: A → B → C → D
+        </li>
+        <li>
+          <strong>Ciclo:</strong> Camino que comienza y termina en el mismo nodo. 
+          Ejemplo: A → B → C → A
+        </li>
+      </ul>
+
+      <h3>Grafo Conectado</h3>
+      <p>
+        Un grafo es <strong>conectado</strong> si existe un camino entre cualquier par de nodos. 
+        Si el grafo no es completamente conectado, se dice que tiene múltiples <strong>componentes conectadas</strong>.
+      </p>
+
+      <!-- Resumen -->
+      <h2>Resumen</h2>
+      <div style="background: #e8f4f8; padding: 1.5rem; border-left: 4px solid #667eea; border-radius: 5px;">
+        <p>
+          Los grafos son estructuras de datos fundamentales que representan relaciones entre entidades. 
+          Comprender los conceptos básicos de nodos, aristas y tipos de grafos es esencial para trabajar 
+          con problemas más complejos en programación. Los tres tipos principales son:
+        </p>
+        <ul>
+          <li>💙 <strong>Grafos No Dirigidos:</strong> Sin dirección específica en las aristas</li>
+          <li>💚 <strong>Grafos Dirigidos:</strong> Con dirección clara de origen a destino</li>
+          <li>💛 <strong>Grafos Ponderados:</strong> Con un valor asociado a cada arista</li>
+        </ul>
+        <p>
+          En los siguientes artículos, exploraremos cómo representar estos grafos en memoria 
+          y los algoritmos más importantes para recorrerlos.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div style="margin-top: 3rem; display: flex; justify-content: space-between; gap: 1rem;">
+        <a href="../index.html" class="back-button">← Volver al Inicio</a>
+        <a href="post2.html" class="back-button" style="background-color: #c0392b;">Siguiente: Post #2 →</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Blog Técnico: Estructura de Datos - Grafos</p>
+    <p>Desarrollado por <strong>Alberto Herrera Medina</strong></p>
+  </footer>
+
+  <script src="../assets/js/graph-visualizer.js"></script>
+</body>
+</html>

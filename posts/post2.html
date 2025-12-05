@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post #2: Representación de Grafos | Blog Grafos</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1>📊 Blog Grafos</h1>
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="post1.html">Post #1</a></li>
+        <li><a href="post2.html">Post #2</a></li>
+        <li><a href="post3.html">Post #3</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <a href="../index.html" class="back-button">← Volver al Inicio</a>
+
+    <article class="post-content">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="../assets/images/university-logo.svg" alt="Universidad Incca de Colombia" style="height: 80px; width: auto;">
+      </div>
+      <h1>Representación de Grafos: Lista y Matriz de Adyacencia</h1>
+      <p><em>Aprende las dos formas principales de implementar grafos en memoria</em></p>
+
+      <!-- Tabla de Contenidos -->
+      <div style="background: #f0f0f0; padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+        <h3>📋 Contenido de este artículo</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><a href="#introduccion" style="color: #2ecc71;">¿Cómo representar un grafo?</a></li>
+          <li><a href="#lista" style="color: #2ecc71;">Lista de Adyacencia</a></li>
+          <li><a href="#matriz" style="color: #2ecc71;">Matriz de Adyacencia</a></li>
+          <li><a href="#comparacion" style="color: #2ecc71;">Comparación</a></li>
+        </ul>
+      </div>
+
+      <!-- Section 1 -->
+      <h2 id="introduccion">¿Cómo representar un grafo en memoria?</h2>
+      <p>
+        Una de las decisiones más importantes al trabajar con grafos es elegir cómo representarlos 
+        en la memoria del computador. La forma en que representemos el grafo afectará directamente 
+        la eficiencia espacial y temporal de nuestros algoritmos.
+      </p>
+
+      <p>
+        Existen dos representaciones principales que se utilizan en la programación:
+      </p>
+
+      <ol>
+        <li><strong>Lista de Adyacencia:</strong> Eficiente en espacio para grafos dispersos</li>
+        <li><strong>Matriz de Adyacencia:</strong> Eficiente en tiempo para consultar conexiones</li>
+      </ol>
+
+      <p>
+        La elección entre una u otra depende de las características de nuestro problema y 
+        qué operaciones realizaremos con mayor frecuencia.
+      </p>
+
+      <!-- Section 2 -->
+      <h2 id="lista">Lista de Adyacencia</h2>
+
+      <h3>¿Qué es?</h3>
+      <p>
+        Una <strong>lista de adyacencia</strong> es una forma de representar un grafo donde cada nodo 
+        tiene una lista que contiene todos los nodos con los que está conectado.
+      </p>
+
+      <p>
+        La estructura se puede implementar usando un diccionario (objeto en JavaScript) donde:
+      </p>
+      <ul>
+        <li><strong>Clave:</strong> El identificador del nodo</li>
+        <li><strong>Valor:</strong> Una lista (array) de sus nodos vecinos</li>
+      </ul>
+
+      <h3>Ejemplo de Implementación</h3>
+      <div class="code-block">
+        <code>
+// Grafo no dirigido con lista de adyacencia
+const grafo = {
+  'A': ['B', 'C'],
+  'B': ['A', 'D', 'E'],
+  'C': ['A', 'F'],
+  'D': ['B'],
+  'E': ['B', 'F'],
+  'F': ['C', 'E']
+};
+
+// Acceder a los vecinos de un nodo
+console.log(grafo['A']); // ['B', 'C']
+
+// Agregar una conexión
+grafo['A'].push('D'); // A ahora conecta con D
+        </code>
+      </div>
+
+      <h3>Para Grafos Dirigidos</h3>
+      <p>
+        En un grafo dirigido, la lista de adyacencia solo incluye los nodos a los que se puede 
+        llegar directamente desde cada nodo.
+      </p>
+
+      <div class="code-block">
+        <code>
+// Grafo dirigido: A → B significa que A apunta a B
+const grafoDigirido = {
+  'A': ['B', 'C'],      // A apunta a B y C
+  'B': ['D'],           // B apunta a D
+  'C': ['F'],           // C apunta a F
+  'D': [],              // D no apunta a nadie
+  'E': ['A'],           // E apunta a A
+  'F': ['E']            // F apunta a E
+};
+        </code>
+      </div>
+
+      <h3>Para Grafos Ponderados</h3>
+      <p>
+        Para grafos ponderados, en lugar de almacenar solo el nodo vecino, 
+        almacenamos un objeto con el nodo y su peso.
+      </p>
+
+      <div class="code-block">
+        <code>
+// Grafo ponderado
+const grafoPonderado = {
+  'A': [
+    { nodo: 'B', peso: 5 },
+    { nodo: 'C', peso: 3 }
+  ],
+  'B': [
+    { nodo: 'A', peso: 5 },
+    { nodo: 'D', peso: 7 }
+  ],
+  'C': [
+    { nodo: 'A', peso: 3 },
+    { nodo: 'F', peso: 8 }
+  ]
+  // ... más nodos
+};
+        </code>
+      </div>
+
+      <h3>Ventajas de Lista de Adyacencia</h3>
+      <ul>
+        <li>✅ <strong>Eficiente en espacio:</strong> Solo almacena las aristas que existen (ideal para grafos dispersos)</li>
+        <li>✅ <strong>Operaciones de iteración rápidas:</strong> Acceso inmediato a los vecinos de un nodo</li>
+        <li>✅ <strong>Flexible:</strong> Fácil de modificar, agregar o eliminar nodos y aristas</li>
+      </ul>
+
+      <h3>Desventajas de Lista de Adyacencia</h3>
+      <ul>
+        <li>❌ <strong>Verificación de aristas lenta:</strong> Necesita iterar la lista para verificar si existe una arista</li>
+        <li>❌ <strong>Eliminación de aristas puede ser lenta:</strong> Requiere búsqueda en la lista</li>
+      </ul>
+
+      <!-- Diagram -->
+      <div class="diagram">
+        <h4>Ejemplo Visual: Lista de Adyacencia</h4>
+        <canvas id="graphCanvasList" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">
+          Representación visual del grafo. Cada nodo almacena su lista de nodos conectados.
+        </p>
+      </div>
+
+      <!-- Section 3 -->
+      <h2 id="matriz">Matriz de Adyacencia</h2>
+
+      <h3>¿Qué es?</h3>
+      <p>
+        Una <strong>matriz de adyacencia</strong> es una matriz (tabla 2D) que representa el grafo. 
+        Las filas y columnas representan los nodos, y cada celda [i][j] indica si existe una arista 
+        del nodo i al nodo j.
+      </p>
+
+      <h3>Ejemplo de Implementación</h3>
+      <div class="code-block">
+        <code>
+// Grafo no dirigido con matriz de adyacencia
+// Nodos: A(0), B(1), C(2), D(3), E(4), F(5)
+const matriz = [
+  [0, 1, 1, 0, 0, 0],  // A: conectado a B, C
+  [1, 0, 0, 1, 1, 0],  // B: conectado a A, D, E
+  [1, 0, 0, 0, 0, 1],  // C: conectado a A, F
+  [0, 1, 0, 0, 0, 0],  // D: conectado a B
+  [0, 1, 0, 0, 0, 1],  // E: conectado a B, F
+  [0, 0, 1, 0, 1, 0]   // F: conectado a C, E
+];
+
+// Verificar si existe arista A-B (0-1)
+console.log(matriz[0][1]); // 1 (sí existe)
+
+// Verificar si existe arista A-D (0-3)
+console.log(matriz[0][3]); // 0 (no existe)
+
+// Agregar arista A-D
+matriz[0][3] = 1;
+matriz[3][0] = 1; // En grafo no dirigido, hacerlo en ambas direcciones
+        </code>
+      </div>
+
+      <h3>Para Grafos Dirigidos</h3>
+      <p>
+        En un grafo dirigido, la matriz es asimétrica. 
+        matriz[i][j] = 1 significa que hay una arista de i a j, 
+        pero matriz[j][i] puede ser diferente.
+      </p>
+
+      <div class="code-block">
+        <code>
+// Grafo dirigido
+// A → B, A → C, B → D, etc.
+const matrizDigirida = [
+  [0, 1, 1, 0, 0, 0],  // A apunta a B, C
+  [0, 0, 0, 1, 0, 0],  // B apunta a D
+  [0, 0, 0, 0, 0, 1],  // C apunta a F
+  [0, 0, 0, 0, 0, 0],  // D no apunta a nadie
+  [1, 0, 0, 0, 0, 0],  // E apunta a A
+  [0, 0, 0, 0, 1, 0]   // F apunta a E
+];
+        </code>
+      </div>
+
+      <h3>Para Grafos Ponderados</h3>
+      <p>
+        En lugar de 0 y 1, almacenamos el peso de la arista. 
+        0 o infinito (∞) indica que no hay arista.
+      </p>
+
+      <div class="code-block">
+        <code>
+const matrizPonderada = [
+  [0,   5,   3,   ∞,   ∞,   ∞],  // A-B: 5, A-C: 3
+  [5,   0,   ∞,   7,   ∞,   ∞],  // B-A: 5, B-D: 7
+  [3,   ∞,   0,   ∞,   ∞,   8],  // C-A: 3, C-F: 8
+  [∞,   7,   ∞,   0,   ∞,   ∞],  // D-B: 7
+  [∞,   ∞,   ∞,   ∞,   0,   1],  // E-F: 1
+  [∞,   ∞,   8,   ∞,   1,   0]   // F-C: 8, F-E: 1
+];
+        </code>
+      </div>
+
+      <h3>Ventajas de Matriz de Adyacencia</h3>
+      <ul>
+        <li>✅ <strong>Búsqueda rápida de aristas:</strong> O(1) para verificar si existe una arista</li>
+        <li>✅ <strong>Adición y eliminación de aristas rápida:</strong> O(1)</li>
+        <li>✅ <strong>Algunos algoritmos más eficientes:</strong> Floyd-Warshall funciona bien con matrices</li>
+      </ul>
+
+      <h3>Desventajas de Matriz de Adyacencia</h3>
+      <ul>
+        <li>❌ <strong>Uso excesivo de memoria:</strong> O(n²) incluso para grafos dispersos</li>
+        <li>❌ <strong>Iteración de vecinos lenta:</strong> Debe recorrer toda la fila para encontrar vecinos</li>
+        <li>❌ <strong>No ideal para grafos grandes:</strong> Si el grafo tiene 10,000 nodos, necesita una matriz de 100 millones de celdas</li>
+      </ul>
+
+      <!-- Diagram -->
+      <div class="diagram">
+        <h4>Ejemplo Visual: Matriz de Adyacencia</h4>
+        <canvas id="graphCanvasMatrix" width="500" height="400"></canvas>
+        <p style="margin-top: 1rem; color: #666;">
+          La matriz representa las conexiones entre todos los nodos.
+        </p>
+      </div>
+
+      <!-- Section 4 -->
+      <h2 id="comparacion">Comparación: Lista vs Matriz de Adyacencia</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Operación</th>
+            <th>Lista de Adyacencia</th>
+            <th>Matriz de Adyacencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Espacio</strong></td>
+            <td>O(V + E)</td>
+            <td>O(V²)</td>
+          </tr>
+          <tr>
+            <td><strong>Verificar arista (u,v)</strong></td>
+            <td>O(grado(u))</td>
+            <td>O(1)</td>
+          </tr>
+          <tr>
+            <td><strong>Obtener vecinos de u</strong></td>
+            <td>O(grado(u))</td>
+            <td>O(V)</td>
+          </tr>
+          <tr>
+            <td><strong>Agregar arista</strong></td>
+            <td>O(1)</td>
+            <td>O(1)</td>
+          </tr>
+          <tr>
+            <td><strong>Eliminar arista</strong></td>
+            <td>O(grado(u))</td>
+            <td>O(1)</td>
+          </tr>
+          <tr>
+            <td><strong>Mejor para</strong></td>
+            <td>Grafos dispersos</td>
+            <td>Grafos densos</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Recomendaciones -->
+      <h2>¿Cuál Usar?</h2>
+      <div style="background: #f0f8e8; padding: 1.5rem; border-left: 4px solid #48bb78; border-radius: 5px;">
+        <h3>Usa Lista de Adyacencia cuando:</h3>
+        <ul>
+          <li>💚 El grafo tiene pocas aristas en comparación con V² (grafo disperso)</li>
+          <li>💚 Necesitas iterar sobre los vecinos de un nodo con frecuencia</li>
+          <li>💚 Necesitas ahorrar memoria</li>
+          <li>💚 Trabajas con redes sociales, la web, o sistemas reales (generalmente dispersos)</li>
+        </ul>
+      </div>
+
+      <div style="background: #e8f4f8; padding: 1.5rem; border-left: 4px solid #4299e1; border-radius: 5px; margin-top: 1rem;">
+        <h3>Usa Matriz de Adyacencia cuando:</h3>
+        <ul>
+          <li>🔵 El grafo tiene muchas aristas en comparación con V² (grafo denso)</li>
+          <li>🔵 Necesitas verificar si existe una arista específica muy frecuentemente</li>
+          <li>🔵 Usarás algoritmos que necesitan acceso O(1) a cualquier arista</li>
+          <li>🔵 El número de nodos es relativamente pequeño</li>
+        </ul>
+      </div>
+
+      <!-- Resumen -->
+      <h2>Resumen</h2>
+      <div style="background: #f9f0ff; padding: 1.5rem; border-left: 4px solid #d946ef; border-radius: 5px;">
+        <p>
+          La representación de un grafo es fundamental para su implementación eficiente. 
+          Las dos opciones principales son:
+        </p>
+        <ul>
+          <li>
+            <strong>Lista de Adyacencia:</strong> Ideal para grafos dispersos, 
+            usa O(V + E) de espacio, excelente para iterar vecinos
+          </li>
+          <li>
+            <strong>Matriz de Adyacencia:</strong> Ideal para grafos densos, 
+            usa O(V²) de espacio, búsqueda de aristas en O(1)
+          </li>
+        </ul>
+        <p>
+          La elección depende de la naturaleza de tu problema y qué operaciones son más frecuentes. 
+          En la mayoría de casos reales, la lista de adyacencia es la opción preferida.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div style="margin-top: 3rem; display: flex; justify-content: space-between; gap: 1rem;">
+        <a href="post1.html" class="back-button" style="background-color: #c0392b;">← Post #1</a>
+        <a href="post3.html" class="back-button" style="background-color: #c0392b;">Post #3 →</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Blog Técnico: Estructura de Datos - Grafos</p>
+    <p>Desarrollado por <strong>Alberto Herrera Medina</strong></p>
+  </footer>
+
+  <script src="../assets/js/graph-visualizer.js"></script>
+</body>
+</html>
